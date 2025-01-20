@@ -1,7 +1,7 @@
 # HotelUp - Information service
 ![dockerhub_badge](https://github.com/Wiaz24/HotelUp.Information/actions/workflows/dockerhub.yml/badge.svg)
 
-This service should expose endpoints on port `5001` starting with:
+This service should expose endpoints on port `5003` starting with:
 ```http
 /api/information/
 ```
