@@ -1,6 +1,5 @@
 using HotelUp.Information.Persistence.EF.Health;
 using HotelUp.Information.Persistence.EF.Postgres;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HotelUp.Information.Persistence.EF;
