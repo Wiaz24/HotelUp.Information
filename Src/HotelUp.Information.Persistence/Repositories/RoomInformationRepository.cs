@@ -43,6 +43,12 @@ public class RoomInformationRepository : IRoomInformationRepository
         await _roomInformation.AddAsync(roomInformation);
         await _dbContext.SaveChangesAsync();
     }
+    
+    public async Task AddRangeAsync(IEnumerable<RoomInformation> roomInformationEntries)
+    {
+        await _roomInformation.AddRangeAsync(roomInformationEntries);
+        await _dbContext.SaveChangesAsync();
+    }
 
     public async Task UpdateAsync(RoomInformation roomInformation)
     {

@@ -43,7 +43,7 @@ public class HotelEventController : ControllerBase
     [HttpPost("example-data")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [SwaggerOperation("Generates example data for hotel event")]
+    [SwaggerOperation("Generates example data for hotel event. (Requires admin role)")]
     public async Task<IActionResult> GenerateExampleData()
     {
         await _hotelEventService.GenerateExampleData();
@@ -54,7 +54,7 @@ public class HotelEventController : ControllerBase
     [HttpDelete("example-data")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [SwaggerOperation("Deletes example data for hotel event")]
+    [SwaggerOperation("Deletes example data for hotel event. (Requires admin role)")]
     public async Task<IActionResult> DeleteExampleData()
     {
         await _hotelEventService.DeleteExampleData();

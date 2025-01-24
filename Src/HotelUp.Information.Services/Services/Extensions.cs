@@ -8,6 +8,7 @@ public static class Extensions
     {
         services.AddScoped<IHotelEventService, HotelEventService>();
         services.AddScoped<IPlannedDishService, PlannedDishService>();
+        services.AddScoped<IRoomInformationService, RoomInformationService>();
         return services;
     }
 }

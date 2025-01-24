@@ -43,7 +43,7 @@ public class PlannedDishController : ControllerBase
     [HttpPost("example-data")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [SwaggerOperation("Generates example data for planned dishes")]
+    [SwaggerOperation("Generates example data for planned dishes. (Requires admin role)")]
     public async Task<IActionResult> GenerateExampleData()
     {
         await _plannedDishService.GenerateExampleData();
@@ -54,7 +54,7 @@ public class PlannedDishController : ControllerBase
     [HttpDelete("example-data")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [SwaggerOperation("Deletes example data for planned dishes")]
+    [SwaggerOperation("Deletes example data for planned dishes. (Requires admin role)")]
     public async Task<IActionResult> DeleteExampleData()
     {
         await _plannedDishService.DeleteExampleData();
