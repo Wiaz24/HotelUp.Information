@@ -63,6 +63,9 @@ internal sealed class DbContextConfiguration
             b.WithOwner()
                 .HasPrincipalKey(x => x.Number);
             
+            b.Property(x => x.ReservationId)
+                .IsRequired();
+            
             b.Property(x => x.StartDate)
                 .IsRequired()
                 .HasConversion(

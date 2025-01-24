@@ -38,6 +38,21 @@ public class RoomInformationRepository : IRoomInformationRepository
             .FirstOrDefaultAsync(x => x.Number == roomNumber);
     }
 
+    public async Task<IEnumerable<RoomInformation>> GetWithProvidedNumbersAsync(IEnumerable<int> roomNumbers)
+    {
+        return await _roomInformation
+            .Where(x => roomNumbers.Contains(x.Number))
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<RoomInformation>> GetByReservationIdAsync(Guid reservationId)
+    {
+        return await _roomInformation
+            .Where(x => x.Reservations
+                .Any(r => r.ReservationId == reservationId))
+            .ToListAsync();
+    }
+
     public async Task AddAsync(RoomInformation roomInformation)
     {
         await _roomInformation.AddAsync(roomInformation);
@@ -54,6 +69,12 @@ public class RoomInformationRepository : IRoomInformationRepository
     {
         _roomInformation.Update(roomInformation);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public Task UpdateRangeAsync(IEnumerable<RoomInformation> roomInformationEntries)
+    {
+        _roomInformation.UpdateRange(roomInformationEntries);
+        return _dbContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(RoomInformation roomInformation)

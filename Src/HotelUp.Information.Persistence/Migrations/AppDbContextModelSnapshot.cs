@@ -99,6 +99,9 @@ namespace HotelUp.Information.Persistence.Migrations
                             b1.Property<DateTime>("EndDate")
                                 .HasColumnType("timestamp with time zone");
 
+                            b1.Property<Guid>("ReservationId")
+                                .HasColumnType("uuid");
+
                             b1.Property<DateTime>("StartDate")
                                 .HasColumnType("timestamp with time zone");
 
