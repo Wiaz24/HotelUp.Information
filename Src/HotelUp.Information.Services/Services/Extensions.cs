@@ -6,7 +6,9 @@ public static class Extensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        // Add services here as scoped
+        services.AddScoped<IHotelEventService, HotelEventService>();
+        services.AddScoped<IPlannedDishService, PlannedDishService>();
+        services.AddScoped<IRoomInformationService, RoomInformationService>();
         return services;
     }
 }

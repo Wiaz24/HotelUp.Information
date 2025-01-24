@@ -4,10 +4,13 @@ namespace HotelUp.Information.Persistence.Repositories;
 
 public interface IHotelEventRepository
 {
-    Task<HotelEvent?> FindByIdAsync(Guid id);
-    Task<IEnumerable<HotelEvent>> FindByDateAsync(DateOnly date);
-    Task<HotelEvent?> GetAsync(Guid id);
+    Task<HotelEvent?> GetByIdAsync(Guid id);
+    Task<IEnumerable<HotelEvent>> GetAllAsync();
+    Task<IEnumerable<HotelEvent>> GetByDateAsync(DateOnly date);
+    Task<IEnumerable<HotelEvent>> GetByTitleFragmentAsync(string searchString);
     Task AddAsync(HotelEvent hotelEvent);
+    Task AddRangeAsync(IEnumerable<HotelEvent> hotelEvents);
     Task UpdateAsync(HotelEvent hotelEvent);
     Task DeleteAsync(HotelEvent hotelEvent);
+    Task DeleteRangeAsync(IEnumerable<HotelEvent> hotelEvents);
 }

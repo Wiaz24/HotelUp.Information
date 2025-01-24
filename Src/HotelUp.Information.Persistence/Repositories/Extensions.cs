@@ -7,7 +7,9 @@ public static class Extensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddMemoryCache();
-        // Add repositories here
+        services.AddScoped<IHotelEventRepository, HotelEventRepository>();
+        services.AddScoped<IPlannedDishRepository, PlannedDishRepository>();
+        services.AddScoped<IRoomInformationRepository, RoomInformationRepository>();
         return services;
     }
 }

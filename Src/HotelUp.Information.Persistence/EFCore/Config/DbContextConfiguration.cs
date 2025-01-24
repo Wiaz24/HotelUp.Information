@@ -2,7 +2,7 @@ using HotelUp.Information.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HotelUp.Information.Persistence.EF.Config;
+namespace HotelUp.Information.Persistence.EFCore.Config;
 
 internal sealed class DbContextConfiguration
     : IEntityTypeConfiguration<HotelEvent>,

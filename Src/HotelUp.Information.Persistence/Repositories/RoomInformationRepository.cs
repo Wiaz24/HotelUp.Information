@@ -1,4 +1,4 @@
-using HotelUp.Information.Persistence.EF;
+using HotelUp.Information.Persistence.EFCore;
 using HotelUp.Information.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -9,45 +9,27 @@ public class RoomInformationRepository : IRoomInformationRepository
 {
     private readonly DbSet<RoomInformation> _roomInformation;
     private readonly AppDbContext _dbContext;
-    private readonly IMemoryCache _memoryCache;
 
-    public RoomInformationRepository(AppDbContext dbContext, IMemoryCache memoryCache)
+    public RoomInformationRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
-        _memoryCache = memoryCache;
         _roomInformation = dbContext.Set<RoomInformation>();
     }
 
-    public async Task<RoomInformation?> FindByRoomNumberAsync(int roomNumber)
+    public Task<RoomInformation?> FindByRoomNumberAsync(int roomNumber)
     {
-        var cacheKey = $"RoomInformation_{roomNumber}";
-        var cachedResult = _memoryCache.Get<RoomInformation?>(cacheKey);
-        if (cachedResult is not null)
-        {
-            return cachedResult;
-        }
-        var result = await  _roomInformation
+        return _roomInformation
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Number == roomNumber);
-        _memoryCache.Set(cacheKey, result, TimeSpan.FromMinutes(5));
-        return result;
     }
 
     public async Task<IEnumerable<RoomInformation>> FindAvailableRoomsAsync(DateTime dateTime)
     {
-        var cacheKey = $"RoomInformation_{dateTime}";
-        var cachedResult = _memoryCache.Get<IEnumerable<RoomInformation>>(cacheKey);
-        if (cachedResult is not null)
-        {
-            return cachedResult;
-        }
-        var result = await  _roomInformation
+        return await _roomInformation
             .AsNoTracking()
             .Where(x => x.Reservations
                 .All(r => r.StartDate > dateTime || r.EndDate < dateTime))
             .ToListAsync();
-        _memoryCache.Set(cacheKey, result, TimeSpan.FromMinutes(5));
-        return result;
     }
 
     public Task<RoomInformation?> GetAsync(int roomNumber)
@@ -59,6 +41,12 @@ public class RoomInformationRepository : IRoomInformationRepository
     public async Task AddAsync(RoomInformation roomInformation)
     {
         await _roomInformation.AddAsync(roomInformation);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task AddRangeAsync(IEnumerable<RoomInformation> roomInformationEntries)
+    {
+        await _roomInformation.AddRangeAsync(roomInformationEntries);
         await _dbContext.SaveChangesAsync();
     }
 
