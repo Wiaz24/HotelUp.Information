@@ -1,10 +1,10 @@
-using HotelUp.Information.Persistence.EF.Config;
-using HotelUp.Information.Persistence.EF.Postgres;
+using HotelUp.Information.Persistence.EFCore.Config;
+using HotelUp.Information.Persistence.EFCore.Postgres;
 using HotelUp.Information.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace HotelUp.Information.Persistence.EF;
+namespace HotelUp.Information.Persistence.EFCore;
 
 public class AppDbContext : DbContext
 {

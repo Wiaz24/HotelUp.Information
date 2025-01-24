@@ -1,4 +1,4 @@
-using HotelUp.Information.Persistence.EF;
+using HotelUp.Information.Persistence.EFCore;
 using HotelUp.Information.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;

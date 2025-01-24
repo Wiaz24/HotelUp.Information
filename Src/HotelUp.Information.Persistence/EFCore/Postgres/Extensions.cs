@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
-namespace HotelUp.Information.Persistence.EF.Postgres;
+namespace HotelUp.Information.Persistence.EFCore.Postgres;
 
 public static class Extensions
 {
@@ -15,7 +15,8 @@ public static class Extensions
             .BindConfiguration(SectionName)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-
+        services.AddScoped(x => 
+            new NpgsqlConnection(x.GetRequiredService<IOptions<PostgresOptions>>().Value.ConnectionString));
         return services;
     }
 
