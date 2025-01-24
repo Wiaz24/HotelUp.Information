@@ -13,8 +13,9 @@ public class ReservationCanceledEventHandler : IConsumer<ReservationCanceledEven
         _roomInformationService = roomInformationService;
     }
 
-    public Task Consume(ConsumeContext<ReservationCanceledEvent> context)
+    public async Task Consume(ConsumeContext<ReservationCanceledEvent> context)
     {
-        throw new NotImplementedException();
+        var message = context.Message;
+        await _roomInformationService.DetachReservationFromRoomsAsync(message.ReservationId);
     }
 }
