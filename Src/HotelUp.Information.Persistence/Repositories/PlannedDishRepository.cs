@@ -32,15 +32,35 @@ public class PlannedDishRepository : IPlannedDishRepository
         return result;
     }
 
+    public async Task<IEnumerable<PlannedDish>> GetByNameFragmentAsync(string nameFragment)
+    {
+        var result = await _plannedDishes
+            .Where(x => EF.Functions.ILike(x.Name, $"%{nameFragment}%"))
+            .ToListAsync();
+        return result;
+    }
+
     public async Task AddAsync(PlannedDish plannedDish)
     {
         await _plannedDishes.AddAsync(plannedDish);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task AddRangeAsync(IEnumerable<PlannedDish> plannedDishes)
+    {
+        await _plannedDishes.AddRangeAsync(plannedDishes);
         await _dbContext.SaveChangesAsync();
     }
 
     public async Task RemoveAsync(PlannedDish plannedDish)
     {
         _plannedDishes.Remove(plannedDish);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task RemoveRangeAsync(IEnumerable<PlannedDish> plannedDishes)
+    {
+        _plannedDishes.RemoveRange(plannedDishes);
         await _dbContext.SaveChangesAsync();
     }
 }

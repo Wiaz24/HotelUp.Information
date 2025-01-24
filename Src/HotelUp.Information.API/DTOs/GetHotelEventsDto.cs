@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
 namespace HotelUp.Information.API.DTOs;
 
 public record GetHotelEventsDto
 {
-    [DefaultValue(typeof(DateOnly), "2025-01-01")]
+    [SwaggerParameter("The date of the event. If not provided, date is today. Example: 2022-12-31")]
     public DateOnly? Date { get; init; }
 }
