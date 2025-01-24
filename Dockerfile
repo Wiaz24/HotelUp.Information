@@ -22,4 +22,8 @@ RUN dotnet publish "HotelUp.Information.API.csproj" -c $BUILD_CONFIGURATION -o /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl --silent --fail http://localhost:5003/api/information/_health || exit 1
+    
 ENTRYPOINT ["dotnet", "HotelUp.Information.API.dll"]
