@@ -15,17 +15,6 @@ public class HotelEventControllerTests : IntegrationTestsBase
     {
     }
     
-    private HttpClient CreateHttpClientWithToken(Guid clientId, IEnumerable<Claim> claims)
-    {
-        var httpClient = Factory.CreateClient();
-        var token = MockJwtTokens.GenerateJwtToken(new List<Claim>()
-        {
-            new Claim(ClaimTypes.NameIdentifier, clientId.ToString()),
-        }.Concat(claims));
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        return httpClient;
-    }
-    
     [Fact]
     public async Task GenerateExampleData_WhenUserIsNotAdmin_ShouldReturnForbidden()
     {

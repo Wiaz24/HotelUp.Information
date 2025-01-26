@@ -31,6 +31,7 @@ public class RoomInformationService : IRoomInformationService
                 {
                     new RoomReservation()
                     {
+                        ReservationId = Guid.NewGuid(),
                         StartDate = DateTime.UtcNow.Date,
                         EndDate = DateTime.UtcNow.Date.AddDays(1)
                     }
@@ -45,6 +46,7 @@ public class RoomInformationService : IRoomInformationService
                 {
                     new RoomReservation()
                     {
+                        ReservationId = Guid.NewGuid(),
                         StartDate = DateTime.UtcNow.Date.AddDays(1),
                         EndDate = DateTime.UtcNow.Date.AddDays(3)
                     }
@@ -66,5 +68,40 @@ public class RoomInformationService : IRoomInformationService
                 await _roomInformationRepository.DeleteAsync(roomInformation);
             }
         }
+    }
+
+    public Task AddRoomAsync(RoomInformation roomInformation)
+    {
+        return _roomInformationRepository.AddAsync(roomInformation);
+    }
+
+    public async Task AttachReservationToRoomsAsync(Guid reservationId, DateTime startDate, 
+        DateTime endDate, IEnumerable<int> roomNumbers)
+    {
+        var reservation = new RoomReservation
+        {
+            ReservationId = reservationId,
+            StartDate = startDate,
+            EndDate = endDate
+        };
+        var rooms = (await _roomInformationRepository
+            .GetWithProvidedNumbersAsync(roomNumbers))
+            .ToList();
+        foreach (var room in rooms)
+        {
+            room.Reservations.Add(reservation);
+        }
+        await _roomInformationRepository.UpdateRangeAsync(rooms);
+    }
+
+    public async Task DetachReservationFromRoomsAsync(Guid reservationId)
+    {
+        var roomInformationEntries = (await _roomInformationRepository
+            .GetByReservationIdAsync(reservationId)).ToList();
+        foreach (var entry in roomInformationEntries)
+        {
+            entry.Reservations.RemoveAll(x => x.ReservationId == reservationId);
+        }
+        await _roomInformationRepository.UpdateRangeAsync(roomInformationEntries);
     }
 }
