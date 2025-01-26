@@ -19,7 +19,7 @@ builder.Services.AddPersistenceLayer();
 
 var app = builder.Build();
 app.UseShared();
-app.UseDelta();
+// app.UseDelta();
 app.UseCustomSwagger();
 app.UseCorsForFrontend();
 app.MapControllers();
