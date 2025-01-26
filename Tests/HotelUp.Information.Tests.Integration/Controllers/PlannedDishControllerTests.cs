@@ -4,12 +4,13 @@ using System.Security.Claims;
 using HotelUp.Information.Persistence.Entities;
 using Shouldly;
 using Xunit.Abstractions;
+
 // ReSharper disable PossibleMultipleEnumeration
 
 namespace HotelUp.Information.Tests.Integration.Controllers;
 
 [Collection(nameof(PlannedDishControllerTests))]
-public class PlannedDishControllerTests  : IntegrationTestsBase
+public class PlannedDishControllerTests : IntegrationTestsBase
 {
     public PlannedDishControllerTests(TestWebAppFactory factory, ITestOutputHelper testOutputHelper)
         : base(factory, testOutputHelper, "api/information/planned-dish")

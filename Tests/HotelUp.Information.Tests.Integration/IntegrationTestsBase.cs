@@ -7,10 +7,10 @@ namespace HotelUp.Information.Tests.Integration;
 
 public abstract class IntegrationTestsBase : IClassFixture<TestWebAppFactory>
 {
-    protected TestWebAppFactory Factory { get; }
+    protected readonly string Prefix;
     protected readonly IServiceProvider ServiceProvider;
     protected readonly ITestOutputHelper TestOutputHelper;
-    protected readonly string Prefix;
+    protected TestWebAppFactory Factory { get; }
 
     protected IntegrationTestsBase(TestWebAppFactory factory, ITestOutputHelper testOutputHelper, string prefix)
     {
@@ -23,9 +23,9 @@ public abstract class IntegrationTestsBase : IClassFixture<TestWebAppFactory>
     protected HttpClient CreateHttpClientWithToken(Guid clientId, IEnumerable<Claim> claims)
     {
         var httpClient = Factory.CreateClient();
-        var token = MockJwtTokens.GenerateJwtToken(new List<Claim>()
+        var token = MockJwtTokens.GenerateJwtToken(new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, clientId.ToString()),
+            new(ClaimTypes.NameIdentifier, clientId.ToString())
         }.Concat(claims));
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         return httpClient;

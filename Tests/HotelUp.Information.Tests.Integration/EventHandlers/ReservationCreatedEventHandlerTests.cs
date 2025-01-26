@@ -13,12 +13,13 @@ namespace HotelUp.Information.Tests.Integration.EventHandlers;
 public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
 {
     private readonly IBus _bus;
-    public ReservationCreatedEventHandlerTests(TestWebAppFactory factory, ITestOutputHelper testOutputHelper) 
-        : base(factory, testOutputHelper,"")
+
+    public ReservationCreatedEventHandlerTests(TestWebAppFactory factory, ITestOutputHelper testOutputHelper)
+        : base(factory, testOutputHelper, "")
     {
         _bus = ServiceProvider.GetRequiredService<IBus>();
     }
-    
+
     private async Task<IEnumerable<RoomInformation>> GetRoomInformationsAsync(Guid reservationId)
     {
         using var scope = ServiceProvider.CreateScope();
@@ -35,17 +36,18 @@ public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
         {
             var roomInformation = new RoomInformation
             {
-                Number = i+1,
+                Number = i + 1,
                 Capacity = 1,
                 WithSpecialNeeds = i % 2 == 0,
                 Reservations = []
             };
             roomInformations.Add(roomInformation);
         }
+
         await roomInformationRepository.AddRangeAsync(roomInformations);
         return roomInformations;
     }
-    
+
     [Fact]
     public async Task Consume_WhenCalled_ShouldAttachReservationToRooms()
     {
@@ -59,7 +61,7 @@ public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
             EndDate = DateTime.UtcNow.AddDays(1),
             Rooms = new List<RoomDto>
             {
-                new RoomDto
+                new()
                 {
                     Id = 1,
                     Capacity = 1,
@@ -67,16 +69,16 @@ public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
                     ImageUrl = exampleImageUrl,
                     Type = RoomType.Basic,
                     WithSpecialNeeds = false
-                },
+                }
             }
         };
 
         (await GetRoomInformationsAsync(reservationId)).ShouldBeEmpty();
-        
+
         await _bus.Publish(reservationCreatedEvent);
 
         await Task.Delay(100);
-        
+
         var roomInformations = (await GetRoomInformationsAsync(reservationId)).ToList();
         roomInformations.ShouldNotBeEmpty();
         roomInformations.Count().ShouldBe(1);
