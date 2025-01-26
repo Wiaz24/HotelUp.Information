@@ -14,8 +14,4 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Delta" Version="6.0.0" />
-    </ItemGroup>
-
 </Project>

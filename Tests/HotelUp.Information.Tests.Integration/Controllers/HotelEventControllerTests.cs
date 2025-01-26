@@ -53,30 +53,4 @@ public class HotelEventControllerTests : IntegrationTestsBase
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
     }
-    
-    [Fact]
-    public async Task GetHotelEventsByDate_WithDeltaInstalled_ShouldProvideAndUseETags()
-    {
-        // Arrange1
-        var adminClaim = new Claim(ClaimTypes.Role, "Admins");
-        var httpClient = CreateHttpClientWithToken(Guid.NewGuid(), [adminClaim]);
-        
-        // Act1
-        var response = await httpClient.GetAsync($"{Prefix}");
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        var eTag = response.Headers.ETag;
-        
-        // Assert1
-        eTag.ShouldNotBeNull();
-        
-        // Arrange2
-        var request = new HttpRequestMessage(HttpMethod.Get, $"{Prefix}");
-        request.Headers.IfNoneMatch.Add(eTag);
-        
-        // Act2
-        var response2 = await httpClient.SendAsync(request);
-        
-        // Assert2
-        response2.StatusCode.ShouldBe(HttpStatusCode.NotModified);
-    }
 }

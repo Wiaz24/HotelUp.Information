@@ -1,11 +1,9 @@
 using System.Text.Json.Serialization;
-using Delta;
 using HotelUp.Information.API.Cors;
 using HotelUp.Information.API.Swagger;
 using HotelUp.Information.Persistence;
 using HotelUp.Information.Services;
 using HotelUp.Information.Shared;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddShared();
@@ -19,13 +17,12 @@ builder.Services.AddPersistenceLayer();
 
 var app = builder.Build();
 app.UseShared();
-app.UseDelta();
-app.UseCustomSwagger();
 app.UseCorsForFrontend();
-app.MapControllers();
+app.UseCustomSwagger();
 app.MapGet("/", () => Results.Redirect("/api/information/swagger/index.html"))
     .Produces(200)
     .ExcludeFromDescription();
+app.MapControllers();
 app.Run();
 
 public interface IApiMarker
