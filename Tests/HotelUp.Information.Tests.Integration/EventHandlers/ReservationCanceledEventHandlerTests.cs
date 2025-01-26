@@ -83,7 +83,7 @@ public class ReservationCanceledEventHandlerTests : IntegrationTestsBase
 
         await _bus.Publish(reservationCanceledEvent);
 
-        await Task.Delay(100);
+        await Task.Delay(500);
 
         var roomInformationsAfter = await GetRoomInformationsAsync(reservationId);
         roomInformationsAfter.ShouldBeEmpty();

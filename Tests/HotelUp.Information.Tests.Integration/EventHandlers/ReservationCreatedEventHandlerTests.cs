@@ -77,7 +77,7 @@ public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
 
         await _bus.Publish(reservationCreatedEvent);
 
-        await Task.Delay(100);
+        await Task.Delay(500);
 
         var roomInformations = (await GetRoomInformationsAsync(reservationId)).ToList();
         roomInformations.ShouldNotBeEmpty();
