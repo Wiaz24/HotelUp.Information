@@ -51,4 +51,9 @@ public class PlannedDishService : IPlannedDishService
     {
         return _plannedDishRepository.GetByServingDateAsync(date);
     }
+
+    public Task AddDishesAsync(IEnumerable<PlannedDish> dishes)
+    {
+        return _plannedDishRepository.AddRangeAsync(dishes);
+    }
 }

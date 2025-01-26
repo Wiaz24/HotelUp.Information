@@ -7,7 +7,7 @@ namespace HotelUp.Information.Tests.Integration.TestContainers;
 internal static class RabbitMqContainerFactory
 {
     private const int DefaultAmqpPort = 5672;
-    private static int _numInstances = 0;
+    private static int _numInstances;
     private static int GetContainerInstance => Interlocked.Increment(ref _numInstances) - 1;
 
     internal static RabbitMqContainer Create()
@@ -20,7 +20,7 @@ internal static class RabbitMqContainerFactory
             .WithEnvironment("RABBITMQ_DEFAULT_USER", "guest")
             .WithEnvironment("RABBITMQ_DEFAULT_PASS", "guest")
             .WithWaitStrategy(Wait.ForUnixContainer()
-                .UntilMessageIsLogged(new Regex("started TCP listener on \\[::\\]:")))
+                .UntilMessageIsLogged(new Regex("Time to start RabbitMQ:")))
             .Build();
     }
 }

@@ -7,4 +7,5 @@ public interface IPlannedDishService
     Task GenerateExampleData();
     Task DeleteExampleData();
     Task<IEnumerable<PlannedDish>> GetByDateAsync(DateOnly date);
+    Task AddDishesAsync(IEnumerable<PlannedDish> dishes);
 }

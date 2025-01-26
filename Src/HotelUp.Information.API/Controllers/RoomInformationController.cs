@@ -1,5 +1,6 @@
 ﻿using HotelUp.Information.API.DTOs;
 using HotelUp.Information.Persistence.Entities;
+using HotelUp.Information.Services.DTOs;
 using HotelUp.Information.Services.Services;
 using HotelUp.Information.Shared.Auth;
 using HotelUp.Information.Shared.Exceptions;
@@ -26,7 +27,7 @@ public class RoomInformationController : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [SwaggerOperation("Returns available rooms by date. If date is not provided, returns currently available rooms.")]
-    public async Task<ActionResult<IEnumerable<RoomInformation>>> GetAvailableRooms([FromQuery] GetAvailableRoomsDto dto)
+    public async Task<ActionResult<IEnumerable<RoomInformationDto>>> GetAvailableRooms([FromQuery] GetAvailableRoomsDto dto)
     {
         var date = dto.DateTime ?? _timeProvider.GetUtcNow().DateTime;
         var availableRooms = await _roomInformationService.FindAvailableRoomsAsync(date);
