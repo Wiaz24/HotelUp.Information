@@ -1,5 +1,6 @@
 ﻿using HotelUp.Information.Persistence.Entities;
 using HotelUp.Information.Persistence.Repositories;
+using HotelUp.Information.Services.DTOs;
 
 namespace HotelUp.Information.Services.Services;
 
@@ -12,9 +13,10 @@ public class RoomInformationService : IRoomInformationService
         _roomInformationRepository = roomInformationRepository;
     }
 
-    public Task<IEnumerable<RoomInformation>> FindAvailableRoomsAsync(DateTime dateTime)
+    public async Task<IEnumerable<RoomInformationDto>> FindAvailableRoomsAsync(DateTime dateTime)
     {
-        return _roomInformationRepository.FindAvailableRoomsAsync(dateTime);
+        return (await _roomInformationRepository.FindAvailableRoomsAsync(dateTime))
+            .Select(RoomInformationDto.FromEntity);
     }
 
     public async Task GenerateExampleData()
