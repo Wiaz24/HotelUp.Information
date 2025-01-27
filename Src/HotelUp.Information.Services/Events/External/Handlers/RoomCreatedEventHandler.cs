@@ -22,7 +22,8 @@ public class RoomCreatedEventHandler : IConsumer<RoomCreatedEvent>
             Number = message.Id,
             Capacity = message.Capacity,
             WithSpecialNeeds = message.WithSpecialNeeds,
-            Reservations = []
+            Reservations = [],
+            ImageUrl = message.ImageUrl
         };
         await _roomInformationService.AddRoomAsync(roomInformation);
     }

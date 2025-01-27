@@ -36,7 +36,9 @@ public class RoomInformationService : IRoomInformationService
                         EndDate = DateTime.UtcNow.Date.AddDays(1)
                     }
                 },
-                WithSpecialNeeds = false
+                WithSpecialNeeds = false,
+                ImageUrl = "https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg"
+                
             },
             new RoomInformation
             {
@@ -51,7 +53,8 @@ public class RoomInformationService : IRoomInformationService
                         EndDate = DateTime.UtcNow.Date.AddDays(3)
                     }
                 },
-                WithSpecialNeeds = true
+                WithSpecialNeeds = true,
+                ImageUrl = "https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg"
             }
         };
         await _roomInformationRepository.AddRangeAsync(roomInformationEntries);

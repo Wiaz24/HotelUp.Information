@@ -53,6 +53,7 @@ namespace HotelUp.Information.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Capacity = table.Column<int>(type: "integer", nullable: false),
                     WithSpecialNeeds = table.Column<bool>(type: "boolean", nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Reservations = table.Column<string>(type: "jsonb", nullable: true)
                 },
                 constraints: table =>

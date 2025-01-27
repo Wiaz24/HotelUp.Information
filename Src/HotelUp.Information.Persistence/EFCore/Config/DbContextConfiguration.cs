@@ -55,6 +55,10 @@ internal sealed class DbContextConfiguration
         
         builder.Property(x => x.WithSpecialNeeds)
             .IsRequired();
+        
+        builder.Property(x => x.ImageUrl)
+            .IsRequired()
+            .HasMaxLength(200);
 
         builder.OwnsMany(x => x.Reservations, b =>
         {

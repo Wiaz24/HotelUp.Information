@@ -77,6 +77,11 @@ namespace HotelUp.Information.Persistence.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
                     b.Property<bool>("WithSpecialNeeds")
                         .HasColumnType("boolean");
 
