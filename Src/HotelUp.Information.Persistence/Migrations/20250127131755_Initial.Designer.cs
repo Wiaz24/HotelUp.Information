@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelUp.Information.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250123174027_Initial")]
+    [Migration("20250127131755_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -80,6 +80,11 @@ namespace HotelUp.Information.Persistence.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
                     b.Property<bool>("WithSpecialNeeds")
                         .HasColumnType("boolean");
 
@@ -101,6 +106,9 @@ namespace HotelUp.Information.Persistence.Migrations
 
                             b1.Property<DateTime>("EndDate")
                                 .HasColumnType("timestamp with time zone");
+
+                            b1.Property<Guid>("ReservationId")
+                                .HasColumnType("uuid");
 
                             b1.Property<DateTime>("StartDate")
                                 .HasColumnType("timestamp with time zone");

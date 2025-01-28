@@ -7,6 +7,7 @@ public record RoomInformationDto
     public required int Number { get; init; }
     public required int Capacity { get; init; }
     public required bool WithSpecialNeeds { get; init; }
+    public required string ImageUrl { get; init; }
     
     public static RoomInformationDto FromEntity(RoomInformation roomInformation)
     {
@@ -14,7 +15,8 @@ public record RoomInformationDto
         {
             Number = roomInformation.Number,
             Capacity = roomInformation.Capacity,
-            WithSpecialNeeds = roomInformation.WithSpecialNeeds
+            WithSpecialNeeds = roomInformation.WithSpecialNeeds,
+            ImageUrl = roomInformation.ImageUrl
         };
     }
 }

@@ -39,7 +39,8 @@ public class ReservationCreatedEventHandlerTests : IntegrationTestsBase
                 Number = i + 1,
                 Capacity = 1,
                 WithSpecialNeeds = i % 2 == 0,
-                Reservations = []
+                Reservations = [],
+                ImageUrl = "https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg"
             };
             roomInformations.Add(roomInformation);
         }
