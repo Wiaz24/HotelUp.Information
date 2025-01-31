@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Delta;
 using HotelUp.Information.API.Cors;
 using HotelUp.Information.API.Swagger;
 using HotelUp.Information.Persistence;
@@ -22,6 +23,10 @@ app.UseCustomSwagger();
 app.MapGet("/", () => Results.Redirect("/api/information/swagger/index.html"))
     .Produces(200)
     .ExcludeFromDescription();
+if (app.Configuration.GetValue<bool>("EnableDelta"))
+{
+    app.UseDelta();
+}
 app.MapControllers();
 app.Run();
 
